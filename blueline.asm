@@ -52,8 +52,8 @@ ClearMem
 	BNE ClearMem
 
 ;	Load A with a colour
-;	In this case not dark orange
-	LDA #$22
+;	In this case yellow
+	LDA #$1E
 
 ;	Store Colour in background colour register
 	STA COLUBK
