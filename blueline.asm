@@ -59,11 +59,15 @@ ClearMem
 	STA COLUBK
 
 ;	Load A with colour blue
-	LDA #$99
+	LDA #$72
 
 ;	Store colour in missle0 register
 	STA COLUP0
 
+;   Different blue for other missle
+    LDA #$C9
+    STA COLUP1
+    
 MainLoop
 
 ;	To sync with the TV VSYNC needs to be 0010
@@ -107,15 +111,21 @@ WaitForVblankEnd
 	STA WSYNC
 	STA VBLANK
 
+;   Load 0F into register A
+;   Missle 1 movement 0F
+;   sync up
+    LDA #$1F
+    STA HMM1
+
 ;	Load A with -1 in the left nibble, ignore right
 	LDA #$F0
 
 ;	HMM0 is horizontal movement register for Missle 0
-
 ;	Put our -1 in the left nibble
 	STA HMM0
+    STA WSYNC
 
-;	then start our movemnt of -1
+;	then start movemnt 
 	STA HMOVE
 
 ScanLoop 
@@ -129,6 +139,9 @@ ScanLoop
 ;	this is where loop logic goes
 	LDA #2
 	STA ENAM0
+
+;   Enables missle 1
+    STA ENAM1
 
 ;	Decrement 1 from Y which is being used as a line counter
 	DEY
